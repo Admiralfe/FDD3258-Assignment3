@@ -27,6 +27,7 @@ int main(int argc, char* argv[])
     int iters_per_rank = NUM_ITER / size;
     int rank_0_iters = NUM_ITER - iters_per_rank * (size - 1);
 
+    double start_time = MPI_Wtime();
     if (rank == 0) {
         for (int iter = 0; iter < rank_0_iters; iter++)
         {
@@ -77,6 +78,8 @@ int main(int argc, char* argv[])
     if (rank == 0) {
         pi = ((double) count / (double) NUM_ITER) * 4.0;
         printf("The result is %f\n", pi);
+        double end_time = MPI_Wtime();
+        printf("Execution time: %f s\n", end_time - start_time);
     }
 
     MPI_Finalize();
